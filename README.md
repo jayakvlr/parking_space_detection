@@ -1,5 +1,5 @@
 
-## Parking Space Classification with Relative Positioning
+## Parking Space Detection
 ### Overview
 This project leverages computer vision techniques, streamlit for visualization, and an object classification model to perform real-time classification of parking spaces as either empty or occupied. The main objective is to provide an efficient and accurate system for monitoring parking spaces using drone footage.
 
