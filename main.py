@@ -80,8 +80,9 @@ def getRealTimeUpdate(video_url,mask_url):
     #Compare frames to identify  the changing spots
     diffs=[None for j in spots]
     prev_frame= None
+    #Uncoment this for streamlit
     # Create a video file to store the frames
-    placeholder=st.empty()
+    #placeholder=st.empty()
 
     while ret:
         ret,frame=cap.read()
@@ -98,12 +99,15 @@ def getRealTimeUpdate(video_url,mask_url):
             
             draw_image(spots[spot_idx],frame,spot_status[spot_idx])
 
+        cv2.rectangle(frame, (80, 20), (550, 80), (0, 0, 0), -1)
+        cv2.putText(frame,'Available spots {}/{}'.format(str(sum(spot_status)),str(len(spot_status))),(100,60),cv2.FONT_HERSHEY_SIMPLEX,1,(255,255,255),2)
 
         #Fit to screen for better visualization
-        #cv2.namedWindow('frame',cv2.WINDOW_NORMAL)
-        #cv2.imshow(f'frame',frame)
- 
-        placeholder.image(frame, use_column_width=True, channels="BGR")
+        cv2.namedWindow('frame',cv2.WINDOW_NORMAL)
+        cv2.imshow(f'frame',frame)
+
+        #Uncomment this for streamlit
+        #placeholder.image(frame, use_column_width=True, channels="BGR")
 
         if cv2.waitKey(25) & 0xFF==ord('q'):
             break
@@ -128,6 +132,10 @@ def plotThedifference(diffs):
     plt.ylabel('Differences')
     plt.show()
 
+if __name__=="__main__":
+    video_url="./data/parking_1920_1080_loop.mp4"
+    mask_url="mask_1920_1080.png"
+    getRealTimeUpdate(video_url,mask_url)
 
 
 
